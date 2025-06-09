@@ -227,7 +227,7 @@ useEffect(() => {
                                         download
                                     </span>
                                     <p className="capitalize">
-                                        {isMobilescreen ? "" : "Download"}{download_data.type}
+                                        {isMobilescreen ? "" : "Download "}{download_data.type}
                                     </p>
                                 </button>
                             </li>))}

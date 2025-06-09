@@ -1,22 +1,21 @@
-import {  useContext  } from "react";
-import { PropertyListContext } from '../../contexts/PropertyListContext';
-
-type Project = any;
-type PropertyListContextType = {
-propertylist: Project[];
-completedPropertylist: Project[];
-};
-
-const { propertylist, completedPropertylist } = useContext(PropertyListContext) as PropertyListContextType;
-
+import { propertyDetails } from "../../services/api"; 
 
 export async function generateStaticParams() {
-    
-    return  propertylist.map((element) =>{
-        return element.slug;
-    })
+  const data = await propertyDetails("373");
 
-//   const slugs = ['about-us', 'contact', 'services'];
+  if (!data || data.success !== 1 || !Array.isArray(data.data)) {
+    return [];
+  }
 
-  
+  const slugs: string[] = data.data.map((project: any) => project.slug);
+
+  return slugs.map((slug: string) => ({ slug }));
+}
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <div>
+      {children}
+    </div>
+  );
 }
