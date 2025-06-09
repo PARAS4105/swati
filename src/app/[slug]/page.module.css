@@ -1,0 +1,53 @@
+  .project_banner_image.project_banner_image_upcoming {
+        width: 100%;
+        /* max-width: 1440px; */
+    }
+
+    .amenities-close-icon {
+        cursor: pointer;
+    }
+
+    .tab_buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .tab_buttons button {
+        border: 1px solid var(--secondary-color);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: var(--secondary-color);
+        /* padding: 1.15rem 1.5rem; */
+        padding: 0.75rem 1.5rem;
+        background-color: transparent;
+        transition: var(--common-transition);
+        border-radius: 0rem;
+        width: fit-content;
+        justify-content: center;
+        line-height: 1;
+    }
+
+    .tab_buttons button.active_tab {
+        color: var(--white-color);
+        background-color: var(--secondary-color);
+    }
+
+    .project-signia-banner-text {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 25;
+    text-align: center;
+    display: flex
+;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    width: 92%;
+}

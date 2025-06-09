@@ -1,0 +1,17 @@
+.footer_content_accordian {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.footer_content_accordian.active_list {
+  max-height: 1000px; /* Large enough for your content */
+  padding-top: 10px;   /* adjust as needed */
+  padding-bottom: 10px; /* adjust as needed */
+}
+
+.footer_content_accordian ul li {
+    border-bottom: 0px !important;
+  }
