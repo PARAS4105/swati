@@ -24,30 +24,28 @@ export default function ProjectDetailPage({ params }: Props){
   const [activeImage , setActiveImage] = useState<any>("");
 const [showNextImages, setShowNextImages] = useState(false);
 
-  const fancyboxGroupName = "project-gallery-fancy";
+const fancyboxGroupName = "project-gallery-fancy";
 
-  // Fancybox bind — separate useEffect
 useEffect(() => {
-  if (typeof window !== "undefined") {
-    if (window.innerWidth < 767) {
-      setMobileScreen(true);
-    }
-
-    const selector = `[data-fancybox="${fancyboxGroupName}"]`;
-
-    Fancybox.bind(selector, {
-      infinite: true,
-      Thumbs: {
-        autoStart: true,
-      },
-    });
-
-    return () => {
-      Fancybox.unbind(selector);
-      Fancybox.close();
-    };
+  if (window.innerWidth < 767) {
+    setMobileScreen(true);
   }
-}, [slug, fancyboxGroupName]);
+
+//   const elements = document.querySelectorAll(`[data-fancybox="${fancyboxGroupName}"]`);
+
+//  Fancybox.defaults.plugins = [Thumbs];
+
+   Fancybox.bind('[data-fancybox="project-gallery-fancy"]', {
+    Carousel: {
+      infinite: true
+    }
+  });
+
+  return () => {
+    Fancybox.unbind('[data-fancybox="project-gallery-fancy"]');
+    Fancybox.close();
+  };
+}, [slug]);
 
   useEffect(() => {
      if(window.innerWidth < 767){
@@ -129,7 +127,7 @@ useEffect(() => {
                 (<div >
                     <Swiper  spaceBetween={30} slidesPerView={1}  loop >
 
-                    { projectDetail.banners_data.images.map((banner_data , index)=>(
+                    { projectDetail.banners_data.images.map((banner_data:any , index:any)=>(
                         <SwiperSlide key={index}>
                         { banner_data.image_web_type == 'image' && banner_data.image_web_full && projectDetail.project_id != '772' && (<div className="project_banner_image relative overflow ">
                             <img src={`${banner_data.image_web_full}&w=1903&q=100`}
@@ -168,7 +166,7 @@ useEffect(() => {
                     <div className="new-detail-banner-abs-flex"data-aos="fade-in"  data-aos-duration="1000" data-aos-delay="700">
                         <div className="inner-flex inner-flex-smallest">
                             <div className="new-detail-highlight-grid">
-                                { projectDetail.highlights.map((data , index)=>( 
+                                { projectDetail.highlights.map((data:any , index:any)=>( 
                                     <div key={index} >
                                     <div className="section-paragraph">
                                         <p className="capitalize  semibold-fonts">
@@ -217,7 +215,7 @@ useEffect(() => {
                                 </p>
                                 </button>
                             </li>
-                            { projectDetail.document_other_data != undefined && projectDetail.document_other_data.length > 0 && projectDetail.document_other_data.filter((download_data) => download_data.type == 'Brochure').map((download_data , index) => (  
+                            { projectDetail.document_other_data != undefined && projectDetail.document_other_data.length > 0 && projectDetail.document_other_data.filter((download_data:any) => download_data.type == 'Brochure').map((download_data:any , index:any) => (  
                                 <li key={index}
                                 className={`${isMobilescreen ? "w100" : "" }`}>
                                 {/* ng-click="inquire_popup_click(); inquiry_from_click(download_data.type); "> */}
@@ -236,7 +234,7 @@ useEffect(() => {
             </div>
         </section>)}
 
-        { projectDetail.project_id != '759' && projectDetail.virtual_data.length > 0 && projectDetail.virtual_data.filter((video) => (video.type === 'walk-through' && video.image != "")).map((video , index) =>(<section key={index} 
+        { projectDetail.project_id != '759' && projectDetail.virtual_data.length > 0 && projectDetail.virtual_data.filter((video:any) => (video.type === 'walk-through' && video.image != "")).map((video:any , index:any) =>(<section key={index} 
         className="reecosys-section relative" data-aos="fade-in" data-aos-delay="400" data-aos-duration="1000"
             id="reecosys-project-detail-section-4" >
             <div className="main-container">
@@ -392,7 +390,7 @@ useEffect(() => {
 
         { projectDetail.gallery_data[0].image.length > 0 && (<section id="reecosys-project-detail-section-5" style={{minHeight: "75vh"}}
             className="section-padding reecosys-section">
-             {projectDetail.gallery_data.map((gallery , index) => (<div key={index} id="reecosys-detail-section-gallery" >
+             {projectDetail.gallery_data.map((gallery:any , index:any) => (<div key={index} id="reecosys-detail-section-gallery" >
                 <div className="inner-flex inner-flex-small">
                     <div className="main-container">
                         <div className="flex-row w100mob alc j-c-c relative " data-aos="fade-top" data-aos-duration="1000"
@@ -426,7 +424,7 @@ useEffect(() => {
                     <div className="main-container">
                         <div className="hide-tab-mobile">
                           <div className="gallery-image-grid">
-                            {gallery.image.map((gallaryImgData, index) => {
+                            {gallery.image.map((gallaryImgData:any, index:any) => {
                                 const shouldShow = (() => {
                                     if (activeImage === "") {
                                         return index < 6;

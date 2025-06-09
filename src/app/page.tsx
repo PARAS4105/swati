@@ -9,11 +9,18 @@ import { PropertyListContext } from '../contexts/PropertyListContext';
 
 export default function Home() {
 
-   const { propertylist, completedPropertylist } = useContext(PropertyListContext);
+    type Project = any;
+    type PropertyListContextType = {
+  propertylist: Project[];
+  completedPropertylist: Project[];
+};
+
+     const { propertylist, completedPropertylist } = useContext(PropertyListContext) as PropertyListContextType;
+
 
   
 
-  const [homeDetailsData , setHomeDetails] = useState(null);
+  const [homeDetailsData , setHomeDetails] = useState<any>(null);
   const [isMobilescreen , setMobileScreen] = useState(false);
 
    useEffect(() => {
@@ -75,7 +82,7 @@ export default function Home() {
                     <div className="highlights-for-homes">
                       {/* data-wow-delay="0.6s" data-wow-duration="1s" */}
                         { homeDetailsData.highlights_array.length > 0 && (<div className="highlights-grid  inner-flex inner-flex-smallest" data-aos="fade-in" data-aos-delay="300" data-aos-duration="1000" >
-                            { homeDetailsData.highlights_array.map((data , index) => (
+                            { homeDetailsData.highlights_array.map((data:any , index:any) => (
                               <div key={index}>
                               <div className="banner-title">
                                     <h2>
@@ -200,7 +207,7 @@ export default function Home() {
                         </div>
                     </div>
                     <div className="project-list-grid project-list-grid-2-column">
-                        {completedPropertylist.length > 0 && completedPropertylist.map((project_list_data , index)=> (
+                        {completedPropertylist.length > 0 && completedPropertylist.map((project_list_data:any , index:any)=> (
                             <div className="project-list-card relative" key={index}>
 
                             <div className="relative  " data-aos="fade-in" data-aos-delay="400" data-aos-duration={((index+3)*1000)}>
