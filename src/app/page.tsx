@@ -15,7 +15,7 @@ export default function Home() {
   completedPropertylist: Project[];
 };
 
-     const { propertylist, completedPropertylist } = useContext(PropertyListContext) as PropertyListContextType;
+    const { propertylist, completedPropertylist } = useContext(PropertyListContext) as PropertyListContextType;
 
 
   

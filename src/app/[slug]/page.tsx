@@ -1,7 +1,7 @@
 "use client";
 
 import {projectDetails} from "../../services/api"
-import { use , useEffect, useState  } from "react";
+import {  useContext ,use , useEffect, useState  } from "react";
 import { redirect } from 'next/navigation'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import ReadMore from "../../components/ReadMore"
@@ -10,9 +10,12 @@ import styles from "./page.module.css"
 import { Fancybox } from "@fancyapps/ui";
 // import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 
+
 type Props = {
    params: Promise<{ slug: string }>;
 };
+
+
 
 export default function ProjectDetailPage({ params }: Props){
     const { slug } = use(params);
@@ -35,14 +38,14 @@ useEffect(() => {
 
 //  Fancybox.defaults.plugins = [Thumbs];
 
-   Fancybox.bind('[data-fancybox="project-gallery-fancy"]', {
+   Fancybox.bind(`[data-fancybox=${fancyboxGroupName}]`, {
     Carousel: {
       infinite: true
     }
   });
 
   return () => {
-    Fancybox.unbind('[data-fancybox="project-gallery-fancy"]');
+    Fancybox.unbind(`[data-fancybox=${fancyboxGroupName}]`);
     Fancybox.close();
   };
 }, [slug]);
@@ -405,11 +408,11 @@ useEffect(() => {
                                     </div>
                                     { projectDetail.project_id == 761 && (
                                         <div className="flex-row gallery-tab-images alc j-c-c inner-flex-smallest actualClickPara">
-                                        <p onClick={()=>{setActiveImage('Actual')}}
+                                        <p onClick={()=>{setActiveImage('Actual') ; setShowNextImages(false);}}
                                             className={` ${activeImage == 'Actual' ? 'active' : ""} `}>
                                             Actual Image
                                         </p>
-                                        <p onClick={()=>{setActiveImage('3D')}}
+                                        <p onClick={()=>{setActiveImage('3D');  setShowNextImages(false);}}
                                             className={` ${activeImage == '3D' ? 'active' : ""} `}>
                                             3D Image
                                         </p>
@@ -425,15 +428,15 @@ useEffect(() => {
                         <div className="hide-tab-mobile">
                           <div className="gallery-image-grid">
                             {gallery.image.map((gallaryImgData:any, index:any) => {
-                                const shouldShow = (() => {
+                               const shouldShow = (() => {
                                     if (activeImage === "") {
                                         return index < 6;
+                                    } else if (activeImage === "Actual") {
+                                        return index < 6;
+                                    } else if (activeImage === "3D") {
+                                        return index >= 6 && index <= 11;
                                     } else {
-                                        if (!showNextImages) {
-                                            return index < 6 && gallaryImgData.title === activeImage;
-                                        } else {
-                                            return index >= 6 && index <= 11 && gallaryImgData.title === activeImage;
-                                        }
+                                        return false;
                                     }
                                 })();
 
@@ -492,46 +495,7 @@ useEffect(() => {
                                 );
                             })}
                         </div>
-
                         </div>
-                         {/* <div className="visible-tab-mobile">
-                            <div className="gallery-image-grid-mobile" ng-if="activeImage == ''">
-                                <div className="image-mobile-view relative" ng-repeat="gallaryImgData in gallery.image"
-                                    ng-show="$index < 6">
-                                    <a data-fancybox="project-gallery-fancy2" href="{{gallaryImgData.image_full}}"
-                                        className="project-gallery-fancy relative" target="_self">
-                                        <img src="{{gallaryImgData.image}}&w=888&q=100"
-                                            alt="{{projectDetail.size_price}}"
-                                            className="image-cover aos fadeIn lazyload " data-aos-duration="1000"
-                                            data-aos-delay="0.{{$index*3}}s">
-                                        <div className="project-glaery-overlay"></div>
-                                        <div className="project-enlarge-icons-galeery">
-                                            <span className="material-symbols-outlined">
-                                                pan_zoom
-                                            </span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="gallery-image-grid-mobile" ng-if="activeImage != ''">
-                                <div className="image-mobile-view relative" ng-repeat="gallaryImgData in gallery.image"
-                                    ng-show="gallaryImgData.title == activeImage">
-                                    <a data-fancybox="project-gallery-fancy2" href="{{gallaryImgData.image_full}}"
-                                        className="project-gallery-fancy relative" target="_self">
-                                        <img src="{{gallaryImgData.image}}&w=888&q=100"
-                                            alt="{{projectDetail.size_price}}"
-                                            className="image-cover aos fadeIn lazyload " data-aos-duration="1000"
-                                            data-aos-delay="0.{{$index*3}}s">
-                                        <div className="project-glaery-overlay"></div>
-                                        <div className="project-enlarge-icons-galeery">
-                                            <span className="material-symbols-outlined">
-                                                pan_zoom
-                                            </span>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>  */}
                     </div>
 
                      {/* <div className="main-container">
@@ -574,3 +538,4 @@ useEffect(() => {
   }
 
 }
+
